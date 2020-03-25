@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./css/index.css" rel="stylesheet" />
+    <script src="./data/data.js" type="text/javascript"></script>
     <script src="./js/index.js" type="text/javascript"></script>
     <title>To Do List</title>
   </head>
@@ -18,71 +19,19 @@
       <article id="itemsContainer">
         <section id="addItemsContainer" class="add-items-container">
           <input
+            id="addItem"
             type="text"
             class="add-input"
             autofocus
             placeholder="Enter your to do item"
+            onkeydown="enterItem(event)"
           />
-          <button type="button" class="btn btn-checked">╋</button>
+          <button type="button" class="btn btn-checked" onclick="addItem()">
+            ╋
+          </button>
         </section>
-        <section id="itemsContainer" class="itemsContainer">
-          <ol>
-            <li>
-              <input type="checkbox" />
-              <span contenteditable="true">Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-            <li>
-              <input type="checkbox" />
-              <span>Learing javascript</span>
-              <button class="deleteBtn"></button>
-            </li>
-          </ol>
+        <section id="itemsContainer" class="items-container">
+          <ol id="items"></ol>
         </section>
       </article>
       <footer id="btnContainer" class="btnContainer">

@@ -22,6 +22,9 @@ body {
   background: white;
   border-radius: 5px;
   opacity: 0.8;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 h2 {
   text-align: center;
@@ -70,12 +73,13 @@ p {
   font-size: 15px;
   padding-left: 5px;
 }
-.itemsContainer {
+.items-container {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 16px;
   max-height: 280px;
   overflow: scroll;
+  min-height: 150px;
 }
 ol {
   margin-top: 0px;
@@ -84,11 +88,18 @@ ol li {
   padding: 5px 0px 5px 2px;
   position: relative;
 }
+ol li span {
+  margin-left: 5px;
+}
 ol li:nth-child(even) {
   background: #f4ecec;
 }
 input[type='checkbox'] {
   transform: scale(1.2);
+}
+.completed {
+  color: #999;
+  text-decoration: line-through;
 }
 .deleteBtn {
   background: url('../images/delete.png');
