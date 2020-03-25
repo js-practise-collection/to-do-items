@@ -35,9 +35,18 @@
         </section>
       </article>
       <footer id="btnContainer" class="btnContainer">
-        <button class="btn btn-margin btn-checked">All</button>
-        <button class="btn btn-margin">Active</button>
-        <button class="btn btn-margin">Completed</button>
+        <button
+          class="btn btn-margin btn-checked"
+          onclick="filterItems(this, 'all')"
+        >
+          All
+        </button>
+        <button class="btn btn-margin" onclick="filterItems(this, 'active')">
+          Active
+        </button>
+        <button class="btn btn-margin" onclick="filterItems(this, 'completed')">
+          Completed
+        </button>
       </footer>
     </main>
   </body>

@@ -1,3 +1,4 @@
+window.currentStatus = 'all';
 function addItem() {
   let itemDom = document.getElementById('addItem');
   let items = getAllItems();
@@ -7,9 +8,9 @@ function addItem() {
     status: 'active'
   };
   items.push(item);
-  saveAllItems(items);
-  showItems(items);
   itemDom.value = '';
+  saveAllItems(items);
+  showItemsWithCurrentStatus();
 }
 
 function enterItem(event) {
@@ -50,13 +51,30 @@ function changeItemStatus(id) {
     }
   });
   saveAllItems(items);
-  showItems(items);
+  showItemsWithCurrentStatus();
 }
 
 function deleteItem(id) {
   let items = getAllItems().filter((item) => item.id !== id);
   saveAllItems(items);
-  showItems(items);
+  showItemsWithCurrentStatus();
+}
+
+function showItemsWithCurrentStatus() {
+  let items = getAllItems();
+  if (window.currentStatus === 'all') {
+    showItems(items);
+  } else {
+    showItems(items.filter((item) => item.status === window.currentStatus));
+  }
+}
+
+function filterItems(dom, status) {
+  window.currentStatus = status;
+  let elements = dom.parentNode.children;
+  Array.from(elements).forEach((ele) => ele.classList.remove('btn-checked'));
+  dom.classList.add('btn-checked');
+  showItemsWithCurrentStatus();
 }
 
 function renderDom(htmlEle, eleID) {
@@ -65,6 +83,5 @@ function renderDom(htmlEle, eleID) {
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
-  let items = getAllItems();
-  showItems(items);
+  showItemsWithCurrentStatus();
 });
