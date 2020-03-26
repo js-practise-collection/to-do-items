@@ -35,12 +35,35 @@ function generateItem(id, text, status) {
     (status === 'completed' ? 'checked' : '') +
     ' onclick="changeItemStatus(' +
     id +
-    ')"/><span contenteditable="true">' +
+    ')"/><span id="' +
+    id +
+    '" onclick="makeEditable(this)" onkeydown="editItem(this)" onmouseout="makedDisEditable(this)">' +
     text +
     '</span><button class="deleteBtn" onclick="deleteItem(' +
     id +
     ')"></button></li>'
   );
+}
+
+function makeEditable(ele) {
+  ele.setAttribute('contenteditable', true);
+}
+
+function makedDisEditable(ele) {
+  ele.setAttribute('contenteditable', false);
+}
+
+function editItem(ele) {
+  if (event.keyCode == 13) {
+    let text = ele.innerText;
+    let id = ele.getAttribute('id');
+    let orginalItem = getAllItems().find((item) => item.id === parseInt(id));
+    orginalItem.text = text;
+    let othersItems = getAllItems().filter((item) => item.id !== parseInt(id));
+    othersItems.push(orginalItem);
+    saveAllItems(othersItems);
+    showItemsWithCurrentStatus();
+  }
 }
 
 function changeItemStatus(id) {
