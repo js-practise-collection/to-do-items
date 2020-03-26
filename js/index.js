@@ -1,27 +1,19 @@
 window.currentStatus = 'all';
-function addItem() {
+function addToDoItem() {
   let itemDom = document.getElementById('addItem');
-  let items = getAllItems();
-  let item = {
-    id: items.length + 1,
-    text: itemDom.value,
-    status: 'active'
-  };
-  items.push(item);
+  addItem(itemDom.value);
   itemDom.value = '';
-  saveAllItems(items);
   showItemsWithCurrentStatus();
 }
 
 function enterItem(event) {
   if (event.keyCode == 13) {
-    addItem();
+    addToDoItem();
   }
 }
 
 function showItems(items) {
   let lis = items
-    .sort((a, b) => b.id - a.id)
     .map((item) => generateItem(item.id, item.text, item.status))
     .reduce((a, b) => a + b, '');
   renderDom(lis, 'items');
@@ -57,34 +49,18 @@ function editItem(ele) {
   if (event.keyCode == 13) {
     let text = ele.innerText;
     let id = ele.getAttribute('id');
-    let orginalItem = getAllItems().find((item) => item.id === parseInt(id));
-    orginalItem.text = text;
-    let othersItems = getAllItems().filter((item) => item.id !== parseInt(id));
-    othersItems.push(orginalItem);
-    saveAllItems(othersItems);
+    modifyItemText(id, text);
     showItemsWithCurrentStatus();
   }
 }
 
 function changeItemStatus(id) {
-  let items = getAllItems();
-  items.forEach((item) => {
-    if (item.id === id) {
-      item.status = item.status === 'completed' ? 'active' : 'completed';
-    }
-  });
-  saveAllItems(items);
-  showItemsWithCurrentStatus();
-}
-
-function deleteItem(id) {
-  let items = getAllItems().filter((item) => item.id !== id);
-  saveAllItems(items);
+  toggleItemStatus(id);
   showItemsWithCurrentStatus();
 }
 
 function showItemsWithCurrentStatus() {
-  let items = getAllItems();
+  let items = getAllToDoItems();
   if (window.currentStatus === 'all') {
     showItems(items);
   } else {
