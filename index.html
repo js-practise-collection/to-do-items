@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./css/index.css" rel="stylesheet" />
-    <script src="./data/data.js" type="text/javascript"></script>
     <script src="./js/service.js" type="text/javascript"></script>
     <script src="./js/index.js" type="text/javascript"></script>
+    <script src="./js/fetch-service.js" type="text/javascript"></script>
     <title>To Do List</title>
   </head>
   <body>
@@ -42,10 +42,10 @@
         >
           All
         </button>
-        <button class="btn btn-margin" onclick="filterItems(this, 'active')">
+        <button class="btn btn-margin" onclick="filterItems(this, 'ACTIVE')">
           Active
         </button>
-        <button class="btn btn-margin" onclick="filterItems(this, 'completed')">
+        <button class="btn btn-margin" onclick="filterItems(this, 'COMPLETED')">
           Completed
         </button>
       </footer>

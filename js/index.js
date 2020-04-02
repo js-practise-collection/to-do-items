@@ -1,9 +1,12 @@
 window.currentStatus = 'all';
 function addToDoItem() {
   let itemDom = document.getElementById('addItem');
-  addItem(itemDom.value);
-  itemDom.value = '';
-  showItemsWithCurrentStatus();
+  addItem(itemDom.value).then((res) => {
+    if (res.ok) {
+      itemDom.value = '';
+      showItemsWithCurrentStatus();
+    }
+  });
 }
 
 function enterItem(event) {
@@ -24,7 +27,7 @@ function generateItem(id, text, status) {
     '<li class="' +
     status +
     '"><input type="checkbox" ' +
-    (status === 'completed' ? 'checked' : '') +
+    (status === 'COMPLETED' ? 'checked' : '') +
     ' onclick="changeItemStatus(' +
     id +
     ')"/><span id="' +
@@ -49,23 +52,38 @@ function editItem(ele) {
   if (event.keyCode == 13) {
     let text = ele.innerText;
     let id = ele.getAttribute('id');
-    modifyItemText(id, text);
-    showItemsWithCurrentStatus();
+    modifyItemText(id, text).then((res) => {
+      if (res.ok) {
+        showItemsWithCurrentStatus();
+      }
+    });
   }
 }
 
 function changeItemStatus(id) {
-  toggleItemStatus(id);
-  showItemsWithCurrentStatus();
+  toggleItemStatus(id).then((res) => {
+    if (res.ok) {
+      showItemsWithCurrentStatus();
+    }
+  });
 }
 
 function showItemsWithCurrentStatus() {
-  let items = getAllToDoItems();
-  if (window.currentStatus === 'all') {
-    showItems(items);
-  } else {
-    showItems(items.filter((item) => item.status === window.currentStatus));
-  }
+  getAllToDoItems().then((items) => {
+    if (window.currentStatus === 'all') {
+      showItems(items);
+    } else {
+      showItems(items.filter((item) => item.status === window.currentStatus));
+    }
+  });
+}
+
+function deleteItem(id) {
+  removeItem(id).then((res) => {
+    if (res.ok) {
+      showItemsWithCurrentStatus();
+    }
+  });
 }
 
 function filterItems(dom, status) {

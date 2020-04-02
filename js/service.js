@@ -1,46 +1,22 @@
-function addItem(text) {
-  let items = getAllItems();
-  let item = {
-    id: items.length + 1,
-    text: text,
-    status: 'active'
-  };
-  items.push(item);
-  saveAllItems(items);
+async function addItem(text) {
+  return await createItem({ text: text });
 }
 
-function modifyItemText(id, text) {
-  let items = getAllItems().map((item) =>
-    item.id === parseInt(id)
-      ? {
-          ...item,
-          text: text
-        }
-      : item
-  );
-
-  saveAllItems(items);
+async function modifyItemText(id, text) {
+  let allItems = await getAllItems();
+  let item = allItems.find((item) => item.id === parseInt(id));
+  item.text = text;
+  return await updateItem(item);
 }
 
-function deleteItem(id) {
-  let items = getAllItems().filter((item) => item.id !== id);
-  saveAllItems(items);
-  showItemsWithCurrentStatus();
+async function getAllToDoItems() {
+  let allItems = await getAllItems();
+  return allItems.sort((a, b) => b.id - a.id);
 }
 
-function getAllToDoItems() {
-  return getAllItems().sort((a, b) => b.id - a.id);
-}
-
-function toggleItemStatus(id) {
-  let items = getAllItems().map((item) =>
-    item.id === parseInt(id)
-      ? {
-          ...item,
-          status: item.status === 'completed' ? 'active' : 'completed'
-        }
-      : item
-  );
-
-  saveAllItems(items);
+async function toggleItemStatus(id) {
+  let allItems = await getAllItems();
+  let item = allItems.find((item) => item.id === parseInt(id));
+  item.status = item.status === 'COMPLETED' ? 'ACTIVE' : 'COMPLETED';
+  return await updateItem(item);
 }
