@@ -68,6 +68,8 @@
 
 **answer-localstorage:** 该分支基于web localstorage, 实现了项目所有需求，如果您在master分支上面实现功能时遇到了困难，您可以切换到该分支上面进行参考。
 
+**answer-fetch-service:** 该分支用于向服务端发送请求，实现该应用程序的基本业务逻辑。使用该分支时，您需要在`js/fetch-service.js`文件里面修改请求服务的地址。
+
 ## 你该怎么做？
 #### 1. 将该项目fork到您的账户下面。
 #### 2. 将fork后的代码仓库clone到您的本地。
