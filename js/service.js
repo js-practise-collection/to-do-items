@@ -1,9 +1,9 @@
 function addItem(text) {
-  let items = getAllItems();
-  let item = {
-    id: items.length + 1,
+  const items = getAllToDoItems();
+  const item = {
+    id: items[0].id + 1,
     text: text,
-    status: 'active'
+    status: 'active',
   };
   items.push(item);
   saveAllItems(items);
@@ -14,7 +14,7 @@ function modifyItemText(id, text) {
     item.id === parseInt(id)
       ? {
           ...item,
-          text: text
+          text: text,
         }
       : item
   );
@@ -37,7 +37,7 @@ function toggleItemStatus(id) {
     item.id === parseInt(id)
       ? {
           ...item,
-          status: item.status === 'completed' ? 'active' : 'completed'
+          status: item.status === 'completed' ? 'active' : 'completed',
         }
       : item
   );
