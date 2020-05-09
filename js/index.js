@@ -1,6 +1,10 @@
 window.currentStatus = 'all';
 function addToDoItem() {
   let itemDom = document.getElementById('addItem');
+  if (!itemDom.checkValidity()) {
+    itemDom.classList.add('require-input');
+    return;
+  }
   addItem(itemDom.value);
   itemDom.value = '';
   showItemsWithCurrentStatus();
