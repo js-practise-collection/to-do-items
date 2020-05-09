@@ -17,28 +17,34 @@ function enterItem(event) {
 }
 
 function showItems(items) {
-  let lis = items
+  let itemsDom = document.getElementById('items');
+  itemsDom.querySelectorAll('*').forEach((n) => n.remove());
+  items
     .map((item) => generateItem(item.id, item.text, item.status))
-    .reduce((a, b) => a + b, '');
-  renderDom(lis, 'items');
+    .forEach((item) => itemsDom.appendChild(item));
 }
 
 function generateItem(id, text, status) {
-  return (
-    '<li class="' +
-    status +
-    '"><input type="checkbox" ' +
-    (status === 'completed' ? 'checked' : '') +
-    ' onclick="changeItemStatus(' +
-    id +
-    ')"/><span id="' +
-    id +
-    '" onclick="makeEditable(this)" onkeydown="editItem(this)" onmouseout="makedDisEditable(this)">' +
-    text +
-    '</span><button class="deleteBtn" onclick="deleteItem(' +
-    id +
-    ')"></button></li>'
-  );
+  let li = document.createElement('li');
+  li.classList.add(status);
+  let input = document.createElement('input');
+  input.setAttribute('type', 'checkbox');
+  input.checked = status === 'completed';
+  input.setAttribute('onclick', 'changeItemStatus(' + id + ')');
+  li.appendChild(input);
+  let span = document.createElement('span');
+  let content = document.createTextNode(text);
+  span.appendChild(content);
+  span.setAttribute('id', id);
+  span.setAttribute('onclick', 'makeEditable(this)');
+  span.setAttribute('onkeydown', 'editItem(this)');
+  span.setAttribute('onmouseout', 'makedDisEditable(this)');
+  li.appendChild(span);
+  let button = document.createElement('button');
+  button.classList.add('deleteBtn');
+  button.setAttribute('onclick', 'deleteItem(' + id + ')');
+  li.appendChild(button);
+  return li;
 }
 
 function makeEditable(ele) {
@@ -78,11 +84,6 @@ function filterItems(dom, status) {
   Array.from(elements).forEach((ele) => ele.classList.remove('btn-checked'));
   dom.classList.add('btn-checked');
   showItemsWithCurrentStatus();
-}
-
-function renderDom(htmlEle, eleID) {
-  let domEle = document.getElementById(eleID);
-  domEle.innerHTML = htmlEle;
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {
