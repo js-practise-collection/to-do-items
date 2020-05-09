@@ -78,7 +78,7 @@ p {
   padding-right: 20px;
   font-size: 16px;
   max-height: 280px;
-  overflow: scroll;
+  overflow: auto;
   min-height: 150px;
 }
 ol {
