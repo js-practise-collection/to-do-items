@@ -73,12 +73,22 @@ p {
   font-size: 15px;
   padding-left: 5px;
 }
+.require-input {
+  border-bottom: 2px solid red !important;
+  color: red;
+}
+.require-input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1; /* Firefox */
+}
+
 .items-container {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 16px;
   max-height: 280px;
-  overflow: scroll;
+  overflow: auto;
   min-height: 150px;
 }
 ol {
