@@ -1,7 +1,7 @@
 function addItem(text) {
   const items = getAllToDoItems();
   const item = {
-    id: items[0].id + 1,
+    id: items.length > 0 ? items[0].id + 1 : 1,
     text: text,
     status: 'active',
   };
